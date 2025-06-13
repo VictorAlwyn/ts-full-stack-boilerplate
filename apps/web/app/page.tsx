@@ -1,9 +1,11 @@
-import React from 'react';
+'use client';
 
-type Props = {};
+import { trpc } from '@repo/trpc/client';
 
-const Home = (props: Props) => {
-  return <div>Home</div>;
-};
+export default function Home() {
+  const { data } = trpc.todo.getAllTodos.useQuery();
 
-export default Home;
+  console.log('Data', data);
+
+  return <></>;
+}
