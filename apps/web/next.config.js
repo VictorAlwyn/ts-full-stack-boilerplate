@@ -8,6 +8,7 @@ const nextConfig = {
       },
     ];
   },
+  transpilePackages: ["@repo/trpc"],
 };
 
 export default nextConfig;

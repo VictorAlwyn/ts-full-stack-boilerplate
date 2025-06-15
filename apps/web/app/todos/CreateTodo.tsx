@@ -1,38 +1,28 @@
-'use client';
+"use client";
 
-import { trpc } from '@repo/trpc/client';
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function CreateTodo() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [priority, setPriority] = useState<
-    'low' | 'medium' | 'high' | ''
-  >('');
-  const utils = trpc.useUtils();
-
-  const mutation = trpc.todo.createTodo.useMutation({
-    onSuccess: () => {
-      setName('');
-      setDescription('');
-      setDueDate('');
-      setPriority('');
-      utils.todo.getAllTodos.invalidate();
-    },
-  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [priority, setPriority] = useState<"low" | "medium" | "high" | "">("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !description.trim()) return;
 
-    mutation.mutate({
-      name,
-      description,
-      completed: false,
-      dueDate,
-      priority: priority || undefined,
-    });
+    // Placeholder - would integrate with tRPC when backend is ready
+    console.log("Creating todo:", { name, description, dueDate, priority });
+    alert(
+      "Todo creation functionality will be available when tRPC backend is connected."
+    );
+
+    // Reset form
+    setName("");
+    setDescription("");
+    setDueDate("");
+    setPriority("");
   };
 
   return (
@@ -69,9 +59,7 @@ export default function CreateTodo() {
       <select
         value={priority}
         onChange={(e) => {
-          setPriority(
-            e.target.value as '' | 'low' | 'medium' | 'high'
-          );
+          setPriority(e.target.value as "" | "low" | "medium" | "high");
         }}
         className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 px-3 py-2 rounded outline-none"
       >
@@ -82,10 +70,9 @@ export default function CreateTodo() {
       </select>
       <button
         type="submit"
-        disabled={mutation.isPending}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full font-medium transition disabled:opacity-50"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full font-medium transition"
       >
-        {mutation.isPending ? 'Creating...' : 'Create Todo'}
+        Create Todo
       </button>
     </form>
   );

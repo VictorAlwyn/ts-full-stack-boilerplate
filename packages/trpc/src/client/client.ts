@@ -1,22 +1,12 @@
-import {
-  createTRPCReact,
-  CreateTRPCReact,
-  httpBatchLink,
-} from '@trpc/react-query';
-import { AppRouter } from '@repo/trpc/router';
-import { QueryClient } from '@tanstack/react-query';
+// Re-export cross-platform tRPC client logic (placeholder)
+export { queryClient } from "./trpc";
 
-export const trpc: CreateTRPCReact<AppRouter, object> =
-  createTRPCReact<AppRouter, object>();
-
-export const queryClient = new QueryClient();
-
-export const createTrpcClient = (url: string) => {
-  return trpc.createClient({
-    links: [
-      httpBatchLink({
-        url,
-      }),
-    ],
-  });
-};
+// Re-export cross-platform authentication utilities
+export {
+  tokenStorage,
+  userStorage,
+  authUtils,
+  setStorageAdapter,
+  browserStorageAdapter,
+  type StorageAdapter,
+} from "./utils/auth";
